@@ -40,6 +40,11 @@ public class PuntoRecarga {
 	}
 	
 	@Override
+	public String toString() {
+		return posicion.getId() + "/" + turnosSinUsar;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if(obj.getClass() == this.getClass()) {
 			PuntoRecarga pr = (PuntoRecarga) obj;

@@ -26,27 +26,20 @@ public class CargarEnergia extends SearchAction {
 		Nodo posicionAgente = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
-		if(posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA 
-				) {
-			// Busco el punto de recarga en la lista de puntos conocidos por el agente
-			PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
+		// Busco el punto de recarga en la lista de puntos conocidos por el agente
+		PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
+		if(puntoRecarga != null && puntoRecarga.getTurnosSinUsar() > 1 && energiaAgente<30.0) {
+			Random rand = new Random();
+			energiaCargada = (double) (rand.nextInt(5, 11));
+			estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente
 			
-			// Verifico que haya pasado mas de un turno sin usar el punto de recarga
-			if(puntoRecarga.getTurnosSinUsar() > 1) {	
-				Random rand = new Random();
-				energiaCargada = (double) (rand.nextInt(5, 11));
-				estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente
-				
-				/**
-				// Se actualizan los turnos sin usar del punto de recarga en el mapa conocido por el agente
-				for(PuntoRecarga pr: estadoAgente.getPuntosRecargaConocidos()) {
-					if(pr.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
-						pr.setTurnosSinUsar(0); // Actualizo la informacion del punto
-					}
+			// Se actualizan los turnos sin usar del punto de recarga en el mapa conocido por el agente
+			for(PuntoRecarga pr: estadoAgente.getPuntosRecargaConocidos()) {
+				if(pr.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
+					pr.setTurnosSinUsar(0); // Actualizo la informacion del punto
 				}
-				*/
-				return estadoAgente;
 			}
+			return estadoAgente;
 		}
 		return null;
 	}
@@ -63,48 +56,36 @@ public class CargarEnergia extends SearchAction {
 		Nodo posicionAgente = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
-		/** LLEGA BIEN
-		System.out.println("Mapa");
-		for(Nodo nodo: estadoAgente.getMapaConocido().getMapa()) {
-			System.out.println(nodo);
-		}
-		*/
-		
-		if(posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA 
-				) {
+		// Busco el punto de recarga en la lista de puntos conocidos por el agente
+		PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
+		if(puntoRecarga != null && puntoRecarga.getTurnosSinUsar() > 1 && energiaAgente<30.0) {
+			Random rand = new Random();
+			energiaCargada = (double) (rand.nextInt(5, 11));
+			estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente
+			// Se actualizan los turnos sin usar del punto de recarga en el mapa conocido por el agente
 			
-			// Busco el punto de recarga en la lista de puntos conocidos por el agente
-			PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
-			// Verifico que haya pasado mas de un turno sin usar el punto de recarga
-			if(puntoRecarga.getTurnosSinUsar() > 1) {
-				Random rand = new Random();
-				energiaCargada = (double) (rand.nextInt(5, 11));
-				estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente
-				// Se actualizan los turnos sin usar del punto de recarga en el mapa conocido por el agente
-				
-				/** PODRIA FALLAR: NO SE SI CON ACTUALIZAR PR ACTUALIZO EL PUNTO EN LA LISTA */
-				
-				for(PuntoRecarga pr: estadoAgente.getPuntosRecargaConocidos()) {
-					if(pr.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
-						pr.setTurnosSinUsar(0); // Actualizo la informacion del punto
-					}
+			/** PODRIA FALLAR: NO SE SI CON ACTUALIZAR PR ACTUALIZO EL PUNTO EN LA LISTA */
+			
+			for(PuntoRecarga pr: estadoAgente.getPuntosRecargaConocidos()) {
+				if(pr.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
+					pr.setTurnosSinUsar(0); // Actualizo la informacion del punto
 				}
-				// Se actualiza la energia disponible del agente en el estado del ambiente
-				estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
-				// Se actualizan los turnos sin usar del punto de recarga en el mapa del ambiente
-				
-				/** PODRIA FALLAR: NO SE SI CON ACTUALIZAR PRA ACTUALIZO EL PUNTO EN LA LISTA */
-				
-				for(PuntoRecarga pra: estadoAmbiente.getPuntosRecarga()) {
-					if(pra.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
-						pra.setTurnosSinUsar(0);
-					}
-				}
-				
-				System.out.println("Puntos cargados: " + energiaCargada);
-				
-				return estadoAmbiente;
 			}
+			// Se actualiza la energia disponible del agente en el estado del ambiente
+			estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
+			// Se actualizan los turnos sin usar del punto de recarga en el mapa del ambiente
+			
+			/** PODRIA FALLAR: NO SE SI CON ACTUALIZAR PRA ACTUALIZO EL PUNTO EN LA LISTA */
+			
+			for(PuntoRecarga pra: estadoAmbiente.getPuntosRecarga()) {
+				if(pra.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
+					pra.setTurnosSinUsar(0);
+				}
+			}
+			
+			System.out.println("Puntos cargados: " + energiaCargada);
+			
+			return estadoAmbiente;
 		}
 		return null;
 	}

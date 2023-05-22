@@ -27,19 +27,24 @@ public class AgentePokemon extends SearchBasedAgent {
 			// Operadores del agente
 			Vector<SearchAction> acciones = new Vector<SearchAction>();
 			
-			acciones.addElement(new CargarEnergia());
-			//acciones.addElement(new ActivarPoderEspecial());
-			
+			// Moverse
 			for(int i=0; i<estado.getMapaConocido().getMapa().size(); i++) {
 				acciones.addElement(new Moverse(estado.getMapaConocido().getMapa().get(i)));
 			}
 			
+			// Combatir
+			acciones.addElement(new Combatir());
+			
+			// Huir
 			for(int j=0; j<estado.getMapaConocido().getMapa().size(); j++) {
 				acciones.addElement(new Huir(estado.getMapaConocido().getMapa().get(j)));
 			}
 			
-			acciones.addElement(new Combatir());
-			
+			// Activar poder
+			acciones.addElement(new ActivarPoderEspecial());
+						
+			// Cargar energia
+			acciones.addElement(new CargarEnergia());
 			
 			// Problema que el agente debe resolver
 			Problem problem = new Problem(objetivo, estado, acciones);

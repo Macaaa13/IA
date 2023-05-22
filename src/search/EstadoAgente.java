@@ -103,33 +103,25 @@ public class EstadoAgente extends SearchBasedAgentState {
 		// Si el satelite esta habilitado, se actualiza el estado del agente con el satelite
 		if(percepcion.getSatelite().isHabilitado()) { 
 			System.out.println("Se usa el satelite");
-			//this.mapaConocido = percepcion.getSatelite().getMapaSatelite().clone();
-			//this.enemigosConocidos = (ArrayList<Enemigo>) percepcion.getSatelite().getEnemigosSatelite().clone();
-			//this.puntosRecargaConocidos = (ArrayList<PuntoRecarga>) percepcion.getSatelite().getPuntosRecargaSatelite().clone();
 			actualizarMapaConocido(percepcion.getSatelite().getMapaSatelite().clone());
 			actualizarEnemigosConocidos((ArrayList<Enemigo>) percepcion.getSatelite().getEnemigosSatelite().clone());
 			actualizarPuntosRecargaConocidos((ArrayList<PuntoRecarga>) percepcion.getSatelite().getPuntosRecargaSatelite().clone());
 			
-
+			/** YA ANDA
 			System.out.println("Mapa");
 			for(Nodo nodo: mapaConocido.getMapa()) {
 				System.out.println(nodo);
 			}
-
+			*/
 			
 		}
 		// Si el satelite no esta habilitado, se actualiza el estado del agente con la percepcion
 		else {
 			
-
-			System.out.println("Mapa");
-			for(Nodo nodo: mapaConocido.getMapa()) {
-				System.out.println(nodo);
-			}
-			
 			actualizarMapaConocido(percepcion.getMapaPercibido().clone());
 			actualizarEnemigosConocidos((ArrayList<Enemigo>) percepcion.getEnemigosPercibidos().clone());
 			actualizarPuntosRecargaConocidos((ArrayList<PuntoRecarga>) percepcion.getPuntosRecargaPercibidos().clone());
+			
 		}
 	}
 	
@@ -157,7 +149,7 @@ public class EstadoAgente extends SearchBasedAgentState {
 					enemigosConocidos.get(i).actualizarEnemigo(percibido); // Actualizo el enemigo
 					i = enemigosConocidos.size(); // Termino el loop
 					banderaEnemigo = true; // Indico que ya se conocia, por lo que no hay que agregarlo
-				}
+				} 
 			}
 			if(!banderaEnemigo) { // Si el enemigo no se conocia, se agrega a la lista de enemigos conocidos
 				enemigosConocidos.add(percibido);
@@ -175,7 +167,7 @@ public void actualizarPuntosRecargaConocidos(ArrayList<PuntoRecarga> puntosPerci
 					puntosRecargaConocidos.get(i).actualizarPuntoRecarga(percibido); // Actualizo el punto
 					i = puntosRecargaConocidos.size(); // Termino el loop
 					banderaPuntoRecarga = true; // Indico que ya se conocia, por lo que no hay que agregarlo
-				}
+				} 
 			}
 			if(!banderaPuntoRecarga) { // Si el punto no se conocia, se agrega a la lista de puntos conocidos
 				puntosRecargaConocidos.add(percibido);
@@ -197,7 +189,7 @@ public void actualizarPuntosRecargaConocidos(ArrayList<PuntoRecarga> puntosPerci
 		mensaje += "]\n";
 		mensaje += "Puntos de Recarga conocidos: [ ";
 		for(PuntoRecarga pr: puntosRecargaConocidos) {
-			mensaje += pr.getPosicion().getId() + ", ";
+			mensaje += pr.toString() + ", ";
 		}
 		mensaje += "]\n";
 		mensaje += "Mapa conocido: [ ";

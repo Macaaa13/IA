@@ -179,7 +179,7 @@ public class PercepcionAgente extends Perception {
 		mensaje += "]\n";
 		mensaje += "Puntos de Recarga percibidos: [";
 		for(PuntoRecarga pr: puntosRecargaPercibidos) {
-			mensaje += pr.getPosicion().getId() + ", ";
+			mensaje += pr.toString() + ", ";
 		}
 		mensaje += "]\n";
 		mensaje += "Mapa percibido: [";

@@ -50,7 +50,7 @@ public class Nodo {
 	public void setSucesores(ArrayList<Nodo> sucesores) {
 		this.sucesores = sucesores;
 	}
-	
+
 	//Metodos
 	public boolean hayPuntoRecarga() {
 		return this.estado == EstadoEnum.PUNTORECARGA;

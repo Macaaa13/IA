@@ -32,8 +32,7 @@ public class Moverse extends SearchAction {
 
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAgente.getMapaConocido().getMapa());
 		
-		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())
-				&& !posicionAgente.hayEnemigo()) {
+		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())) {
 			
 			estadoAgente.setPosicion(posicionSiguiente);
 			return estadoAgente;
@@ -56,8 +55,7 @@ public class Moverse extends SearchAction {
 		
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAmbiente.getMapaAmbiente().getMapa());
 		
-		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())
-				) {
+		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())) {
 			
 			/** Llega bien ANTES de usar el satelite
 			System.out.println("Mapa");

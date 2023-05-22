@@ -14,9 +14,8 @@ public class ActivarPoderEspecial extends SearchAction {
 	// Metodos
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
-		//EstadoAgente estado = (EstadoAgente) s;
-		//EstadoAgente estadoAgente = estado.clone();
-		EstadoAgente estadoAgente = (EstadoAgente) s;
+		EstadoAgente estado = (EstadoAgente) s;
+		EstadoAgente estadoAgente = estado.clone();
 		Nodo posicionAgente = estadoAgente.getPosicion();
 		Double energiaDisponible = estadoAgente.getEnergiaDisponible();
 		Double energiaInicial = estadoAgente.getEnergiaInicial();
@@ -26,13 +25,13 @@ public class ActivarPoderEspecial extends SearchAction {
 		 * 2) El contador de ataques es >= 4 (deben pasar 3 o mas turnos desde la ultima vez que se activo un poder)
 		 * 3) Tiene alguno de sus poderes habilitado (supera su energia inicial en el porcentaje correspondiente al poder)
 		 * Como el jefe comienza con 50 puntos de energia, se busca que el active un poder en caso de tener 50 puntos de energia o menos */
-		if(posicionAgente.getEstado() == EstadoEnum.VACIO
-				&& estadoAgente.getContadorAtaques() >= 4) {
+		if((posicionAgente.getEstado() == EstadoEnum.VACIO || posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA)
+				&& estadoAgente.getContadorAtaques() >= 4 && energiaDisponible<30.0) {
 			// Poder especial 1: se activa cuando se supera en un 25% la energia inicial
 			// Aumenta la energia del agente en un 20%
 			if((energiaDisponible >= (energiaInicial*1.25)) && (energiaDisponible < (energiaInicial*1.75))) {	
 				estadoAgente.setContadorAtaques(0); // Se actualiza el contador de ataques
-				estadoAgente.aumentarEnergia(energiaDisponible*1.2); // Se actualiza la energia del agente
+				estadoAgente.aumentarEnergia(energiaDisponible*0.2); // Se actualiza la energia del agente
 			
 				//System.out.println("Activa primer ataque");
 				
@@ -42,7 +41,7 @@ public class ActivarPoderEspecial extends SearchAction {
 			// Aumenta la energia del agente en un 30%
 			else if((energiaDisponible >= (energiaInicial*1.75)) && (energiaDisponible < (energiaInicial*2.2))) {
 				estadoAgente.setContadorAtaques(0);
-				estadoAgente.aumentarEnergia(energiaDisponible*1.3);
+				estadoAgente.aumentarEnergia(energiaDisponible*0.3);
 				
 				//System.out.println("Activa segundo ataque");
 				
@@ -52,7 +51,7 @@ public class ActivarPoderEspecial extends SearchAction {
 			// Aumenta la energia del agente en un 50%
 			else if(energiaDisponible >= (energiaInicial*2.2)) {
 				estadoAgente.setContadorAtaques(0);
-				estadoAgente.aumentarEnergia(energiaDisponible*1.5);
+				estadoAgente.aumentarEnergia(energiaDisponible*0.5);
 
 				//System.out.println("Activa tercer ataque");
 				
@@ -80,13 +79,13 @@ public class ActivarPoderEspecial extends SearchAction {
 		 * 2) El contador de ataques es >= 4 (deben pasar 3 o mas turnos desde la ultima vez que se activo un poder)
 		 * 3) Tiene alguno de sus poderes habilitado (supera su energia inicial en el porcentaje correspondiente al poder)
 		 * Como el jefe comienza con 50 puntos de energia, se busca que el active un poder en caso de tener 50 puntos de energia o menos */
-		if(posicionAgente.getEstado() == EstadoEnum.VACIO 
-				&& estadoAgente.getContadorAtaques() >= 4) {
+		if((posicionAgente.getEstado() == EstadoEnum.VACIO || posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA)
+				&& estadoAgente.getContadorAtaques() >= 4 && energiaDisponible<30.0) {
 			// Poder especial 1: se activa cuando se supera en un 25% la energia inicial
 			// Aumenta la energia del agente en un 20%
 			if((energiaDisponible >= (energiaInicial*1.25)) && (energiaDisponible < (energiaInicial*1.75))) {
 				estadoAgente.setContadorAtaques(0); // Se actualiza el contador de ataques
-				estadoAgente.aumentarEnergia(energiaDisponible*1.2); // Se actualiza la energia del agente
+				estadoAgente.aumentarEnergia(energiaDisponible*0.2); // Se actualiza la energia del agente
 				// Actualizo la energia del agente en el estado del ambiente
 				estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
 				
@@ -98,7 +97,7 @@ public class ActivarPoderEspecial extends SearchAction {
 			// Aumenta la energia del agente en un 30%
 			else if((energiaDisponible >= (energiaInicial*1.75)) && (energiaDisponible < (energiaInicial*2.2))) {
 				estadoAgente.setContadorAtaques(0);
-				estadoAgente.aumentarEnergia(energiaDisponible*1.3);
+				estadoAgente.aumentarEnergia(energiaDisponible*0.3);
 				// Actualizo la energia del agente en el estado del ambiente
 				estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
 				
@@ -110,7 +109,7 @@ public class ActivarPoderEspecial extends SearchAction {
 			// Aumenta la energia del agente en un 50%
 			else if(energiaDisponible >= (energiaInicial*2.2)) {
 				estadoAgente.setContadorAtaques(0);
-				estadoAgente.aumentarEnergia(energiaDisponible*1.5);
+				estadoAgente.aumentarEnergia(energiaDisponible*0.5);
 				// Actualizo la energia del agente en el estado del ambiente
 				estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
 				

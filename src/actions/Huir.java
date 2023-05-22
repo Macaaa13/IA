@@ -30,19 +30,18 @@ public class Huir extends SearchAction {
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
+		Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
 		if(esSucesor(posicionHuir, posicionActual.getSucesores())
-				&& energiaAgente > 0.0) {
-			if(posicionActual.hayEnemigo() && posicionActual.getId() != IdNodoEnum.FIN) {
-				Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
-				if(energiaAgente <= enem.getEnergia()) {
-					posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
-					estadoAgente.setPosicion(posicionHuir);
-					estadoAgente.aumentarEnergia(-enem.getEnergia()/4);
-					return estadoAgente;
-				}
+				&& energiaAgente > 0.0
+				&& enem != null
+				&& posicionActual.getId() != IdNodoEnum.FIN) {		
+			if(energiaAgente <= enem.getEnergia()) {
+				posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
+				estadoAgente.setPosicion(posicionHuir);
+				estadoAgente.aumentarEnergia(-enem.getEnergia()/4);
+				return estadoAgente;
 			}
 		}
-		
 		return null;
 	}
 
@@ -58,21 +57,20 @@ public class Huir extends SearchAction {
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
+		Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
 		if(esSucesor(posicionHuir, posicionActual.getSucesores())
-				&& energiaAgente > 0.0) {
-			if(posicionActual.hayEnemigo() && posicionActual.getId() != IdNodoEnum.FIN) {
-				Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
-				if(energiaAgente <= enem.getEnergia()) {
-					posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
-					estadoAgente.setPosicion(posicionHuir);
-					estadoAmbiente.setUbicacionAgente(estadoAgente.getPosicion());
-					estadoAgente.aumentarEnergia(-enem.getEnergia()/4);
-					estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
-					return estadoAmbiente;
-				}
+				&& energiaAgente > 0.0
+				&& enem != null
+				&& posicionActual.getId() != IdNodoEnum.FIN) {
+			if(energiaAgente <= enem.getEnergia()) {
+				posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
+				estadoAgente.setPosicion(posicionHuir);
+				estadoAmbiente.setUbicacionAgente(estadoAgente.getPosicion());
+				estadoAgente.aumentarEnergia(-enem.getEnergia()/4);
+				estadoAmbiente.setEnergiaAgente(estadoAgente.getEnergiaDisponible());
+				return estadoAmbiente;
 			}
 		}
-		
 		return null;
 	}
 
@@ -100,8 +98,12 @@ public class Huir extends SearchAction {
 	}
 	
 	public Enemigo obtenerEnemigo(Nodo nodo, ArrayList<Enemigo> enemigos) {
+		//System.out.println("Posicion actual: " + nodo);
+		//System.out.println("Enemigos conocidos:");
 		for(Enemigo e: enemigos) {
+			//System.out.println(e);
 			if(e.getPosicion().getId() == nodo.getId()) {
+				//System.out.println("COINCIDEN");
 				return e;
 			}
 		}

@@ -67,7 +67,7 @@ public class Enemigo {
 	//Metodos
 	@Override
 	public String toString() {
-		return id + "/" + posicion + " - " + energia;
+		return id + "/" + posicion + "/" + energia;
 	}
 	
 	@Override

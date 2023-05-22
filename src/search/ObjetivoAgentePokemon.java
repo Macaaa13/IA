@@ -13,12 +13,11 @@ public class ObjetivoAgentePokemon extends GoalTest {
 	public boolean isGoalState(AgentState agentState) {
 		EstadoAgente estadoAgente = (EstadoAgente) agentState;
 		Nodo posicionAgente = estadoAgente.getPosicion();
+		Nodo posicionJefe = estadoAgente.getMapaConocido().getNodo(IdNodoEnum.FIN);
 		
 		// El agente logra su objetivo de vencer al jefe final si: 
-		if(posicionAgente.getId() == IdNodoEnum.OC1 // Esta en la posicion del jefe
-				//&& estadoAgente.getMapaConocido().getNodo(IdNodoEnum.FIN).getEstado() == EstadoEnum.VACIO
-				//&& posicionAgente.getEstado() == EstadoEnum.VACIO // La posicion esta vacia
-				&& estadoAgente.getEnergiaDisponible() > 0.0) { // Le queda energia despues del combate
+		if(posicionAgente.getId() == IdNodoEnum.FIN 
+				&& estadoAgente.getEnergiaDisponible() >= 30.0) {
 			return true;
 		} 
 		else {

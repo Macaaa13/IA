@@ -26,8 +26,8 @@ public class Combatir extends SearchAction {
 		ArrayList<Enemigo> enemigos = estadoAgente.getEnemigosConocidos();
 		ArrayList<Nodo> mapaAgente = estadoAgente.getMapaConocido().getMapa();
 		
-		if(posicionActual.hayEnemigo()) {
-			Enemigo enem = obtenerEnemigo(posicionActual, enemigos);
+		Enemigo enem = obtenerEnemigo(posicionActual, enemigos);
+		if(enem != null && energiaAgente > 0.0) {
 			if(energiaAgente > enem.getEnergia()) {
 				//System.out.println("Combate y gana contra " + enem.getId());
 				
@@ -48,7 +48,7 @@ public class Combatir extends SearchAction {
 						i = mapaAgente.size();
 					}
 				}
-				posicionActual.setEstado(EstadoEnum.VACIO);	
+				estadoAgente.getPosicion().setEstado(EstadoEnum.VACIO);
 				return estadoAgente;
 			} 
 		}
@@ -64,20 +64,6 @@ public class Combatir extends SearchAction {
 	public EnvironmentState execute(AgentState ast, EnvironmentState est) {
 		EstadoAgente estadoAgente = (EstadoAgente) ast;
 		EstadoAmbiente estadoAmbiente = (EstadoAmbiente) est;
-		
-		/** LLEGA MAL en el turno en el que se usa el satelite
-		System.out.println("Mapa");
-		for(Nodo nodo: estadoAgente.getMapaConocido().getMapa()) {
-			System.out.println(nodo);
-		}
-		*/
-		
-		/** LLEGA BIEN
-		System.out.println("Mapa");
-		for(Nodo nodo: estadoAmbiente.getMapaAmbiente().getMapa()) {
-			System.out.println(nodo);
-		}
-		*/
 		
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
@@ -139,9 +125,7 @@ public class Combatir extends SearchAction {
 	}
 	
 	public Enemigo obtenerEnemigo(Nodo nodo, ArrayList<Enemigo> enemigos) {
-		//System.out.println("Enemigo en: " + nodo.getId());
 		for(Enemigo e: enemigos) {
-			//System.out.println("Enemigo conocido: " + e.getId() + "/" + e.getPosicion().getId());
 			if(e.getPosicion().getId() == nodo.getId()) {
 				return e;
 			}
