@@ -18,23 +18,12 @@ public class EstadoAgente extends SearchBasedAgentState {
 	private ArrayList<Enemigo> enemigosConocidos;
 	private ArrayList<PuntoRecarga> puntosRecargaConocidos;
 	private Integer contadorAtaques;
+	private Double energiaJefe;
 	
 	// Constructor
 	public EstadoAgente(Integer cantidadEnemigos) {
 		this.cantidadEnemigos = cantidadEnemigos;
 		this.initState();
-	}
-	
-	//Constructor para el clone
-	public EstadoAgente(Nodo pos, Double ed, Double ei, Integer ce, Mapa map, ArrayList<Enemigo> enems, ArrayList<PuntoRecarga> puntos, Integer ca) {
-		this.posicion = pos;
-		this.energiaDisponible = ed;
-		this.energiaInicial = ei;
-		this.cantidadEnemigos = ce;
-		this.mapaConocido = map;
-		this.enemigosConocidos = enems;
-		this.puntosRecargaConocidos = puntos;
-		this.contadorAtaques = ca;
 	}
 
 	// Metodos
@@ -47,6 +36,7 @@ public class EstadoAgente extends SearchBasedAgentState {
 		enemigosConocidos = new ArrayList<Enemigo>();
 		puntosRecargaConocidos = new ArrayList<PuntoRecarga>();
 		contadorAtaques = 3; // Empieza en 3 para que el agente pueda usar el poder en el momento en que se habilite
+		energiaJefe = 20.0; 
 	}
 	
 	@Override
@@ -58,6 +48,7 @@ public class EstadoAgente extends SearchBasedAgentState {
 					&& estado.getContadorAtaques() == contadorAtaques // Mismo contador de atauqes
 					&& estado.getEnergiaDisponible() == energiaDisponible // Misma energia disponible
 					&& estado.getEnergiaInicial() == energiaInicial // Misma energia inicial
+					&& estado.getEnergiaJefe() == energiaJefe
 					&& estado.getMapaConocido().equals(mapaConocido) // Mismo mapa conocido
 					// Misma lista de enemigos conocidos
 					&& estado.getEnemigosConocidos().containsAll(enemigosConocidos)
@@ -80,6 +71,7 @@ public class EstadoAgente extends SearchBasedAgentState {
 		nuevoEstadoAgente.setEnergiaDisponible(energiaDisponible);
 		nuevoEstadoAgente.setEnergiaInicial(energiaInicial);
 		nuevoEstadoAgente.setContadorAtaques(contadorAtaques);
+		nuevoEstadoAgente.setEnergiaJefe(energiaJefe);
 		nuevoEstadoAgente.setMapaConocido(mapaConocido.clone());
 		ArrayList<Enemigo> enemigos = new ArrayList<Enemigo>();
 		for(Enemigo e: enemigosConocidos) {
@@ -153,6 +145,9 @@ public class EstadoAgente extends SearchBasedAgentState {
 			}
 			if(!banderaEnemigo) { // Si el enemigo no se conocia, se agrega a la lista de enemigos conocidos
 				enemigosConocidos.add(percibido);
+				if(percibido.getId() == "JEFE FINAL") {
+					energiaJefe = percibido.getEnergia();
+				}
 			}
 		}
 	}
@@ -182,6 +177,7 @@ public void actualizarPuntosRecargaConocidos(ArrayList<PuntoRecarga> puntosPerci
 		mensaje += "Posicion: " + posicion.getId() + "\n";
 		mensaje += "Energia disponible: " + energiaDisponible + "\n";
 		mensaje += "Contador de Ataques: " + contadorAtaques + "\n";
+		mensaje += "Energia del Jefe: " + energiaJefe + "\n";
 		mensaje += "Enemigos conocidos: [ ";
 		for(Enemigo e: enemigosConocidos) {
 			mensaje += e.getId() + "/" + e.getPosicion().getId() + ", ";
@@ -269,4 +265,13 @@ public void actualizarPuntosRecargaConocidos(ArrayList<PuntoRecarga> puntosPerci
 	public void setContadorAtaques(Integer contadorAtaques) {
 		this.contadorAtaques = contadorAtaques;
 	}
+
+	public Double getEnergiaJefe() {
+		return energiaJefe;
+	}
+
+	public void setEnergiaJefe(Double energiaJefe) {
+		this.energiaJefe = energiaJefe;
+	}
+	
 }

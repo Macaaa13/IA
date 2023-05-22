@@ -42,7 +42,7 @@ public class AgentePokemon extends SearchBasedAgent {
 			
 			// Activar poder
 			acciones.addElement(new ActivarPoderEspecial());
-						
+			
 			// Cargar energia
 			acciones.addElement(new CargarEnergia());
 			

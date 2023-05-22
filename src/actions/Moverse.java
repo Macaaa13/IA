@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import extras.Enemigo;
 import extras.EstadoEnum;
-
+import extras.IdNodoEnum;
 import extras.Nodo;
 import extras.PuntoRecarga;
 import frsf.cidisi.faia.agent.search.SearchAction;
@@ -35,11 +35,12 @@ public class Moverse extends SearchAction {
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAgente.getMapaConocido().getMapa());
 		Enemigo e = obtenerEnemigo(posicionAgente, estadoAgente.getEnemigosConocidos());
 		
-		if(e == null && posicionAgente.getSucesores().contains(posicionSiguiente)) {
-			
-			estadoAgente.setPosicion(posicionSiguiente);
-			return estadoAgente;
-		}
+		if(e == null) {
+			if(posicionAgente.getSucesores().contains(posicionSiguiente)) {
+				estadoAgente.setPosicion(posicionSiguiente);
+				return estadoAgente;
+			}
+		} 
 		
 		return null;
 	}
@@ -59,14 +60,6 @@ public class Moverse extends SearchAction {
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAmbiente.getMapaAmbiente().getMapa());
 		
 		if(posicionAgente.getSucesores().contains(posicionSiguiente)) {
-			
-			/** Llega bien ANTES de usar el satelite
-			System.out.println("Mapa");
-			for(Nodo nodo: estadoAgente.getMapaConocido().getMapa()) {
-				System.out.println(nodo);
-			}
-			*/
-			
 			estadoAgente.setPosicion(posicionSiguiente);
 			estadoAmbiente.setUbicacionAgente(estadoAgente.getPosicion());
 			estadoAmbiente.setEnergiaAgente(energiaDisponible);

@@ -79,6 +79,8 @@ public class Combatir extends SearchAction {
 			if(enemigo.getPosicion().getId() != IdNodoEnum.FIN) {
 				estadoAgente.setCantidadEnemigos(estadoAgente.getCantidadEnemigos()-1);
 				estadoAmbiente.setCantidadEnemigos(estadoAgente.getCantidadEnemigos());
+			} else {
+				estadoAgente.setEnergiaJefe(0.0);
 			}
 			for(int i=0; i<enemigos.size(); i++) {
 				if(enemigo.getId() == enemigos.get(i).getId()) {

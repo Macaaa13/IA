@@ -85,7 +85,7 @@ public class EstadoAmbiente extends EnvironmentState {
 	private void crearJefeFinal() {
 		this.mapaAmbiente.getNodo(IdNodoEnum.FIN).setEstado(EstadoEnum.ENEMIGO);
 		Nodo nodoJefe = this.mapaAmbiente.getNodo(IdNodoEnum.FIN);
-		Enemigo enem = new Enemigo("JEFE FINAL", 5.0, nodoJefe);
+		Enemigo enem = new Enemigo("JEFE FINAL", 15.0, nodoJefe);
 		this.enemigos.add(enem);
 	}
 	

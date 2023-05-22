@@ -16,7 +16,7 @@ public class ObjetivoAgentePokemon extends GoalTest {
 		
 		// El agente logra su objetivo de vencer al jefe final si: 
 		if(posicionAgente.getId() == IdNodoEnum.GOAL
-				&& estadoAgente.getEnergiaDisponible() > 20.0) {
+				&& estadoAgente.getEnergiaDisponible() > estadoAgente.getEnergiaJefe()) {
 			return true;
 		} 
 		else {
