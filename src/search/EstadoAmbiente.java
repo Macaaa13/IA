@@ -85,7 +85,7 @@ public class EstadoAmbiente extends EnvironmentState {
 	private void crearJefeFinal() {
 		this.mapaAmbiente.getNodo(IdNodoEnum.FIN).setEstado(EstadoEnum.ENEMIGO);
 		Nodo nodoJefe = this.mapaAmbiente.getNodo(IdNodoEnum.FIN);
-		Enemigo enem = new Enemigo("JEFE FINAL", 40.0, nodoJefe);
+		Enemigo enem = new Enemigo("JEFE FINAL", 5.0, nodoJefe);
 		this.enemigos.add(enem);
 	}
 	
@@ -171,9 +171,9 @@ public class EstadoAmbiente extends EnvironmentState {
 	// Cada cierta cantidad de turnos/ciclos, el satelite se activa
 	public void comportamientoSatelite() {
 		if(satelite.getCiclosAEsperar() == satelite.getCiclosSinUsar()) { // Se puede usar
-			satelite.setMapaSatelite(mapaAmbiente); // Se le setea el mapa del ambiente (actualizado)
-			satelite.setEnemigosSatelite(enemigos); // Se le setean los enemigos (actualizados)
-			satelite.setPuntosRecargaSatelite(puntosRecarga); // Se le setean los puntos de recarga (actualizados)
+			satelite.setMapaSatelite(this.getMapaAmbiente()); // Se le setea el mapa del ambiente (actualizado)
+			satelite.setEnemigosSatelite(this.getEnemigos()); // Se le setean los enemigos (actualizados)
+			satelite.setPuntosRecargaSatelite(this.getPuntosRecarga()); // Se le setean los puntos de recarga (actualizados)
 			satelite.setHabilitado(true);
 			satelite.setCiclosSinUsar(0);
 		} else { // No se puede usar

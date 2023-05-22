@@ -26,15 +26,15 @@ public class EstadoAgente extends SearchBasedAgentState {
 	}
 	
 	//Constructor para el clone
-	public EstadoAgente(EstadoAgente estado) {
-		this.posicion = estado.getPosicion();
-		this.energiaDisponible = estado.getEnergiaDisponible();
-		this.energiaInicial = estado.getEnergiaInicial();
-		this.cantidadEnemigos = estado.getCantidadEnemigos();
-		this.mapaConocido = estado.getMapaConocido().clone();
-		this.enemigosConocidos = (ArrayList<Enemigo>) estado.getEnemigosConocidos().clone();
-		this.puntosRecargaConocidos = (ArrayList<PuntoRecarga>) estado.getPuntosRecargaConocidos().clone();
-		this.contadorAtaques = estado.getContadorAtaques();
+	public EstadoAgente(Nodo pos, Double ed, Double ei, Integer ce, Mapa map, ArrayList<Enemigo> enems, ArrayList<PuntoRecarga> puntos, Integer ca) {
+		this.posicion = pos;
+		this.energiaDisponible = ed;
+		this.energiaInicial = ei;
+		this.cantidadEnemigos = ce;
+		this.mapaConocido = map;
+		this.enemigosConocidos = enems;
+		this.puntosRecargaConocidos = puntos;
+		this.contadorAtaques = ca;
 	}
 
 	// Metodos
@@ -75,7 +75,14 @@ public class EstadoAgente extends SearchBasedAgentState {
 
 	@Override
 	public EstadoAgente clone() {
-		EstadoAgente nuevoEstadoAgente = new EstadoAgente(this);
+		EstadoAgente nuevoEstadoAgente = new EstadoAgente(this.getPosicion().clone(),
+														  this.getEnergiaDisponible(),
+														  this.getEnergiaInicial(),
+														  this.getCantidadEnemigos(),
+														  this.getMapaConocido().clone(),
+														  (ArrayList<Enemigo>) this.getEnemigosConocidos().clone(),
+														  (ArrayList<PuntoRecarga>) this.getPuntosRecargaConocidos().clone(),
+														  this.getContadorAtaques());
 		return nuevoEstadoAgente;
 	}
 
@@ -84,29 +91,48 @@ public class EstadoAgente extends SearchBasedAgentState {
 		PercepcionAgente percepcion = (PercepcionAgente) p;
 		
 		contadorAtaques++;
+		
 		// Si el satelite esta habilitado, se actualiza el estado del agente con el satelite
 		if(percepcion.getSatelite().isHabilitado()) { 
 			System.out.println("Se usa el satelite");
-			this.mapaConocido = percepcion.getSatelite().getMapaSatelite();
-			this.enemigosConocidos = percepcion.getSatelite().getEnemigosSatelite();
-			this.puntosRecargaConocidos = percepcion.getSatelite().getPuntosRecargaSatelite();
+			//this.mapaConocido = percepcion.getSatelite().getMapaSatelite().clone();
+			//this.enemigosConocidos = (ArrayList<Enemigo>) percepcion.getSatelite().getEnemigosSatelite().clone();
+			//this.puntosRecargaConocidos = (ArrayList<PuntoRecarga>) percepcion.getSatelite().getPuntosRecargaSatelite().clone();
+			actualizarMapaConocido(percepcion.getSatelite().getMapaSatelite().clone());
+			actualizarEnemigosConocidos((ArrayList<Enemigo>) percepcion.getSatelite().getEnemigosSatelite().clone());
+			actualizarPuntosRecargaConocidos((ArrayList<PuntoRecarga>) percepcion.getSatelite().getPuntosRecargaSatelite().clone());
+			
+
+			System.out.println("Mapa");
+			for(Nodo nodo: mapaConocido.getMapa()) {
+				System.out.println(nodo);
+			}
+
+			
 		}
 		// Si el satelite no esta habilitado, se actualiza el estado del agente con la percepcion
 		else {
-			actualizarMapaConocido(percepcion.getMapaPercibido());
-			actualizarEnemigosConocidos(percepcion.getEnemigosPercibidos());
-			actualizarPuntosRecargaConocidos(percepcion.getPuntosRecargaPercibidos());
+			
+
+			System.out.println("Mapa");
+			for(Nodo nodo: mapaConocido.getMapa()) {
+				System.out.println(nodo);
+			}
+			
+			actualizarMapaConocido(percepcion.getMapaPercibido().clone());
+			actualizarEnemigosConocidos((ArrayList<Enemigo>) percepcion.getEnemigosPercibidos().clone());
+			actualizarPuntosRecargaConocidos((ArrayList<PuntoRecarga>) percepcion.getPuntosRecargaPercibidos().clone());
 		}
 	}
 	
 	public void actualizarMapaConocido(Mapa mapaPercibido) {
-		ArrayList<Nodo> mapa = this.mapaConocido.getMapa();
+		ArrayList<Nodo> mapa = this.getMapaConocido().getMapa();	
 		for(Nodo percibido: mapaPercibido.getMapa()) {
 			for(int i=0; i<mapa.size(); i++) {
 				// Verifica si el nodo percibido ya era conocido
 				if(mapa.get(i).getId() == percibido.getId()
 						&& percibido.getEstado() != EstadoEnum.DESCONOCIDO) {
-					mapaConocido.getMapa().get(i).actualizarNodo(percibido); // Actualizo el nodo
+					this.getMapaConocido().getMapa().get(i).actualizarNodo(percibido); // Actualizo el nodo
 					i = mapa.size(); // Termino el loop
 				}
 			}

@@ -21,26 +21,30 @@ public class CargarEnergia extends SearchAction {
 	//Metodos
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
-		EstadoAgente estadoAgente = (EstadoAgente) s;
+		EstadoAgente estado = (EstadoAgente) s;
+		EstadoAgente estadoAgente = estado.clone();
 		Nodo posicionAgente = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
 		if(posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA 
 				) {
-			
 			// Busco el punto de recarga en la lista de puntos conocidos por el agente
 			PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
+			
 			// Verifico que haya pasado mas de un turno sin usar el punto de recarga
 			if(puntoRecarga.getTurnosSinUsar() > 1) {	
 				Random rand = new Random();
 				energiaCargada = (double) (rand.nextInt(5, 11));
 				estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente
+				
+				/**
 				// Se actualizan los turnos sin usar del punto de recarga en el mapa conocido por el agente
 				for(PuntoRecarga pr: estadoAgente.getPuntosRecargaConocidos()) {
 					if(pr.getPosicion().getId() == puntoRecarga.getPosicion().getId()) {
 						pr.setTurnosSinUsar(0); // Actualizo la informacion del punto
 					}
 				}
+				*/
 				return estadoAgente;
 			}
 		}
@@ -58,6 +62,13 @@ public class CargarEnergia extends SearchAction {
 		EstadoAmbiente estadoAmbiente = (EstadoAmbiente) est;
 		Nodo posicionAgente = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
+		
+		/** LLEGA BIEN
+		System.out.println("Mapa");
+		for(Nodo nodo: estadoAgente.getMapaConocido().getMapa()) {
+			System.out.println(nodo);
+		}
+		*/
 		
 		if(posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA 
 				) {

@@ -59,6 +59,4 @@ public class PuntoRecarga {
 		this.turnosSinUsar = punto.getTurnosSinUsar();
 	}
 	
-
-	
 }

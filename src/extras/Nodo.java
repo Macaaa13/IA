@@ -14,10 +14,10 @@ public class Nodo {
 		this.sucesores = new ArrayList<>();
 	}
 	
-	public Nodo(Nodo nodo) {
-		this.estado = nodo.getEstado();
-		this.id = nodo.getId();
-		this.sucesores = (ArrayList<Nodo>) nodo.getSucesores().clone();
+	public Nodo(EstadoEnum est, IdNodoEnum ine, ArrayList<Nodo> suc) {
+		this.estado = est;
+		this.id = ine;
+		this.sucesores = suc;
 	}
 	
 	//Getters y Setters
@@ -97,7 +97,9 @@ public class Nodo {
 	}
 	
 	public Nodo clone() {
-		Nodo clon = new Nodo(this);
+		Nodo clon = new Nodo(this.getEstado(),
+							 this.getId(),
+							 (ArrayList<Nodo>) this.getSucesores().clone());
 		return clon;
 	}
 }

@@ -34,6 +34,13 @@ public class Ambiente extends Environment {
 		PercepcionAgente percepcion = new PercepcionAgente();
 		EstadoAmbiente estado = this.getEnvironmentState();
 		
+		/** LLEGA BIEN
+		System.out.println("Mapa");
+		for(Nodo nodo: estado.getMapaAmbiente().getMapa()) {
+			System.out.println(nodo);
+		}
+		*/
+		
 		estado.comportamientoEnemigos(); // Se verifica si los enemigos se mueven
 		estado.comportamientoPuntosRecarga(); // Se actualizan los ciclos sin usar
 		estado.comportamientoSatelite(); // Se habilita/deshabilita

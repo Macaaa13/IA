@@ -26,7 +26,8 @@ public class Moverse extends SearchAction {
 	// Metodos
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
-		EstadoAgente estadoAgente = (EstadoAgente) s;
+		EstadoAgente estado = (EstadoAgente) s;
+		EstadoAgente estadoAgente = estado.clone();
 		Nodo posicionAgente = estadoAgente.getPosicion();
 
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAgente.getMapaConocido().getMapa());
@@ -57,6 +58,13 @@ public class Moverse extends SearchAction {
 		
 		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())
 				) {
+			
+			/** Llega bien ANTES de usar el satelite
+			System.out.println("Mapa");
+			for(Nodo nodo: estadoAgente.getMapaConocido().getMapa()) {
+				System.out.println(nodo);
+			}
+			*/
 			
 			estadoAgente.setPosicion(posicionSiguiente);
 			estadoAmbiente.setUbicacionAgente(estadoAgente.getPosicion());

@@ -70,11 +70,26 @@ public class PercepcionAgente extends Perception {
 		Ambiente ambiente = (Ambiente) environment;
 		EstadoAmbiente estadoAmbiente = ambiente.getEnvironmentState();
 		
+		/** LLEGA BIEN Si en EstadoAgente el satelite se actualiza con las funciones para actualizar
+		System.out.println("Mapa");
+		for(Nodo nodo: estadoAmbiente.getMapaAmbiente().getMapa()) {
+			System.out.println(nodo);
+		}
+		*/
+		
 		// Debe percibirse la posicion actual del agente y sus posiciones adyacentes
 		percibirMapa(estadoAmbiente);
 
 		//Actualizo el satelite con el satelite del ambiente
 		this.satelite = estadoAmbiente.getSatelite();
+		
+		/** SIGUE BIEN Despues de la percepcion
+		System.out.println("Mapa");
+		for(Nodo nodo: estadoAmbiente.getMapaAmbiente().getMapa()) {
+			System.out.println(nodo);
+		}
+		*/
+		
 	}
 	
 	public void percibirMapa(EstadoAmbiente estadoAmbiente) {

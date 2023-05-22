@@ -11,6 +11,7 @@ import frsf.cidisi.faia.solver.search.*;
 import java.util.Vector;
 import java.util.logging.*;
 import actions.*;
+import extras.Nodo;
 
 public class AgentePokemon extends SearchBasedAgent {
 
@@ -26,6 +27,7 @@ public class AgentePokemon extends SearchBasedAgent {
 			// Operadores del agente
 			Vector<SearchAction> acciones = new Vector<SearchAction>();
 			
+			acciones.addElement(new CargarEnergia());
 			//acciones.addElement(new ActivarPoderEspecial());
 			
 			for(int i=0; i<estado.getMapaConocido().getMapa().size(); i++) {
@@ -36,7 +38,6 @@ public class AgentePokemon extends SearchBasedAgent {
 				acciones.addElement(new Huir(estado.getMapaConocido().getMapa().get(j)));
 			}
 			
-			acciones.addElement(new CargarEnergia());
 			acciones.addElement(new Combatir());
 			
 			
@@ -89,7 +90,7 @@ public class AgentePokemon extends SearchBasedAgent {
 		}
 		
 		@Override
-		public void see(Perception p) {
+		public void see(Perception p) {	
 			this.getAgentState().updateState(p);
 		}	
 		

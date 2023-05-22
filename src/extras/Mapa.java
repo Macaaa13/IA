@@ -45,37 +45,39 @@ public class Mapa {
 		cargarMapa();
 	}
 	
-	public Mapa(Mapa map) {
-		this.mapa = (ArrayList<Nodo>) map.getMapa().clone();
-		this.am1 = map.am1.clone();
-		this.am2 = map.am2.clone();
-		this.am3 = map.am3.clone();
-		this.am4 = map.am4.clone();
-		this.am5 = map.am5.clone();
-		this.am6 = map.am6.clone();
-		this.am7 = map.am7.clone();
-		this.am8 = map.am8.clone();
-		this.am9 = map.am9.clone();
-		this.am10 = map.am10.clone();
-		this.eu1 = map.eu1.clone();
-		this.eu2 = map.eu2.clone();
-		this.eu3 = map.eu3.clone();
-		this.eu4 = map.eu4.clone();
-		this.af1 = map.af1.clone();
-		this.af2 = map.af2.clone();
-		this.af3 = map.af3.clone();
-		this.af4 = map.af4.clone();
-		this.as1 = map.as1.clone();
-		this.as2 = map.as2.clone();
-		this.as3 = map.as3.clone();
-		this.as4 = map.as4.clone();
-		this.as5 = map.as5.clone();
-		this.as6 = map.as6.clone();
-		this.as7 = map.as7.clone();
-		this.as8 = map.as8.clone();
-		this.oc1 = map.oc1.clone();
-		this.oc2 = map.oc2.clone();
-		this.fin = map.fin.clone();
+	public Mapa(ArrayList<Nodo> map, Nodo n1, Nodo n2, Nodo n3, Nodo n4, Nodo n5, Nodo n6, Nodo n7, Nodo n8, Nodo n9,
+			Nodo n10, Nodo n11, Nodo n12, Nodo n13, Nodo n14, Nodo n15, Nodo n16, Nodo n17, Nodo n18, Nodo n19, Nodo n20,
+			Nodo n21, Nodo n22, Nodo n23, Nodo n24, Nodo n25, Nodo n26, Nodo n27, Nodo n28, Nodo n29) {
+		this.mapa = map;
+		this.am1 = n1;
+		this.am2 = n2;
+		this.am3 = n3;
+		this.am4 = n4;
+		this.am5 = n5;
+		this.am6 = n6;
+		this.am7 = n7;
+		this.am8 = n8;
+		this.am9 = n9;
+		this.am10 = n10;
+		this.eu1 = n11;
+		this.eu2 = n12;
+		this.eu3 = n13;
+		this.eu4 = n14;
+		this.af1 = n15;
+		this.af2 = n16;
+		this.af3 = n17;
+		this.af4 = n18;
+		this.as1 = n19;
+		this.as2 = n20;
+		this.as3 = n21;
+		this.as4 = n22;
+		this.as5 = n23;
+		this.as6 = n24;
+		this.as7 = n25;
+		this.as8 = n26;
+		this.oc1 = n27;
+		this.oc2 = n28;
+		this.fin = n29;
 	}
 	
 	//Metodos
@@ -255,7 +257,13 @@ public class Mapa {
 	}
 	
 	public Mapa clone() {
-		Mapa map = new Mapa(this);
+		Mapa map = new Mapa((ArrayList<Nodo>) this.getMapa().clone(),
+							this.getAm1().clone(), this.am2.clone(), this.getAm3().clone(), this.getAm4().clone(), this.am5.clone(), this.getAm6().clone(), this.getAm7().clone(), this.getAm8().clone(), this.getAm9().clone(), this.getAm10().clone(),
+							this.getEu1().clone(), this.getEu2().clone(), this.getEu3().clone(), this.getEu4().clone(),
+							this.getAf1().clone(), this.getAf2().clone(), this.getAf3().clone(), this.getAf4().clone(),
+							this.getAs1().clone(), this.getAs2().clone(), this.getAs3().clone(), this.getAs4().clone(), this.getAs5().clone(), this.getAs6().clone(), this.getAs7().clone(), this.getAs8().clone(),
+							this.getOc1().clone(), this.getOc2().clone(),
+							this.getFin().clone());
 		return map;
 	}
 	
@@ -267,6 +275,240 @@ public class Mapa {
 	public void setMapa(ArrayList<Nodo> mapa) {
 		this.mapa = mapa;
 	}
+
+	public Nodo getAm1() {
+		return am1;
+	}
+
+	public void setAm1(Nodo am1) {
+		this.am1 = am1;
+	}
+
+	public Nodo getAm2() {
+		return am2;
+	}
+
+	public void setAm2(Nodo am2) {
+		this.am2 = am2;
+	}
+
+	public Nodo getAm3() {
+		return am3;
+	}
+
+	public void setAm3(Nodo am3) {
+		this.am3 = am3;
+	}
+
+	public Nodo getAm4() {
+		return am4;
+	}
+
+	public void setAm4(Nodo am4) {
+		this.am4 = am4;
+	}
+
+	public Nodo getAm5() {
+		return am5;
+	}
+
+	public void setAm5(Nodo am5) {
+		this.am5 = am5;
+	}
+
+	public Nodo getAm6() {
+		return am6;
+	}
+
+	public void setAm6(Nodo am6) {
+		this.am6 = am6;
+	}
+
+	public Nodo getAm7() {
+		return am7;
+	}
+
+	public void setAm7(Nodo am7) {
+		this.am7 = am7;
+	}
+
+	public Nodo getAm8() {
+		return am8;
+	}
+
+	public void setAm8(Nodo am8) {
+		this.am8 = am8;
+	}
+
+	public Nodo getAm9() {
+		return am9;
+	}
+
+	public void setAm9(Nodo am9) {
+		this.am9 = am9;
+	}
+
+	public Nodo getAm10() {
+		return am10;
+	}
+
+	public void setAm10(Nodo am10) {
+		this.am10 = am10;
+	}
+
+	public Nodo getEu1() {
+		return eu1;
+	}
+
+	public void setEu1(Nodo eu1) {
+		this.eu1 = eu1;
+	}
+
+	public Nodo getEu2() {
+		return eu2;
+	}
+
+	public void setEu2(Nodo eu2) {
+		this.eu2 = eu2;
+	}
+
+	public Nodo getEu3() {
+		return eu3;
+	}
+
+	public void setEu3(Nodo eu3) {
+		this.eu3 = eu3;
+	}
+
+	public Nodo getEu4() {
+		return eu4;
+	}
+
+	public void setEu4(Nodo eu4) {
+		this.eu4 = eu4;
+	}
+
+	public Nodo getAf1() {
+		return af1;
+	}
+
+	public void setAf1(Nodo af1) {
+		this.af1 = af1;
+	}
+
+	public Nodo getAf2() {
+		return af2;
+	}
+
+	public void setAf2(Nodo af2) {
+		this.af2 = af2;
+	}
+
+	public Nodo getAf3() {
+		return af3;
+	}
+
+	public void setAf3(Nodo af3) {
+		this.af3 = af3;
+	}
+
+	public Nodo getAf4() {
+		return af4;
+	}
+
+	public void setAf4(Nodo af4) {
+		this.af4 = af4;
+	}
+
+	public Nodo getAs1() {
+		return as1;
+	}
+
+	public void setAs1(Nodo as1) {
+		this.as1 = as1;
+	}
+
+	public Nodo getAs2() {
+		return as2;
+	}
+
+	public void setAs2(Nodo as2) {
+		this.as2 = as2;
+	}
+
+	public Nodo getAs3() {
+		return as3;
+	}
+
+	public void setAs3(Nodo as3) {
+		this.as3 = as3;
+	}
+
+	public Nodo getAs4() {
+		return as4;
+	}
+
+	public void setAs4(Nodo as4) {
+		this.as4 = as4;
+	}
+
+	public Nodo getAs5() {
+		return as5;
+	}
+
+	public void setAs5(Nodo as5) {
+		this.as5 = as5;
+	}
+
+	public Nodo getAs6() {
+		return as6;
+	}
+
+	public void setAs6(Nodo as6) {
+		this.as6 = as6;
+	}
+
+	public Nodo getAs7() {
+		return as7;
+	}
+
+	public void setAs7(Nodo as7) {
+		this.as7 = as7;
+	}
+
+	public Nodo getAs8() {
+		return as8;
+	}
+
+	public void setAs8(Nodo as8) {
+		this.as8 = as8;
+	}
+
+	public Nodo getOc1() {
+		return oc1;
+	}
+
+	public void setOc1(Nodo oc1) {
+		this.oc1 = oc1;
+	}
+
+	public Nodo getOc2() {
+		return oc2;
+	}
+
+	public void setOc2(Nodo oc2) {
+		this.oc2 = oc2;
+	}
+
+	public Nodo getFin() {
+		return fin;
+	}
+
+	public void setFin(Nodo fin) {
+		this.fin = fin;
+	}
+	
+	
 
 	
 

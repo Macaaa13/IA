@@ -26,7 +26,7 @@ public class Huir extends SearchAction {
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
 		EstadoAgente estado = (EstadoAgente) s;
-		EstadoAgente estadoAgente = estado;
+		EstadoAgente estadoAgente = estado.clone();
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
