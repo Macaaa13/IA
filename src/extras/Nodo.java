@@ -97,9 +97,11 @@ public class Nodo {
 	}
 	
 	public Nodo clone() {
-		Nodo clon = new Nodo(this.getEstado(),
-							 this.getId(),
-							 (ArrayList<Nodo>) this.getSucesores().clone());
+		Nodo clon = new Nodo();
+		clon.setEstado(estado);
+		clon.setId(id);
+		ArrayList<Nodo> nodosSucesores = (ArrayList<Nodo>) sucesores.clone();
+		clon.setSucesores(nodosSucesores);
 		return clon;
 	}
 }

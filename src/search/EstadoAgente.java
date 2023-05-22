@@ -75,14 +75,22 @@ public class EstadoAgente extends SearchBasedAgentState {
 
 	@Override
 	public EstadoAgente clone() {
-		EstadoAgente nuevoEstadoAgente = new EstadoAgente(this.getPosicion().clone(),
-														  this.getEnergiaDisponible(),
-														  this.getEnergiaInicial(),
-														  this.getCantidadEnemigos(),
-														  this.getMapaConocido().clone(),
-														  (ArrayList<Enemigo>) this.getEnemigosConocidos().clone(),
-														  (ArrayList<PuntoRecarga>) this.getPuntosRecargaConocidos().clone(),
-														  this.getContadorAtaques());
+		EstadoAgente nuevoEstadoAgente = new EstadoAgente(cantidadEnemigos);
+		nuevoEstadoAgente.setPosicion(posicion);
+		nuevoEstadoAgente.setEnergiaDisponible(energiaDisponible);
+		nuevoEstadoAgente.setEnergiaInicial(energiaInicial);
+		nuevoEstadoAgente.setContadorAtaques(contadorAtaques);
+		nuevoEstadoAgente.setMapaConocido(mapaConocido.clone());
+		ArrayList<Enemigo> enemigos = new ArrayList<Enemigo>();
+		for(Enemigo e: enemigosConocidos) {
+			enemigos.add(e.clone());
+		}
+		nuevoEstadoAgente.setEnemigosConocidos(enemigos);
+		ArrayList<PuntoRecarga> puntos = new ArrayList<PuntoRecarga>();
+		for(PuntoRecarga pr: puntosRecargaConocidos) {
+			puntos.add(pr.clone());
+		}
+		nuevoEstadoAgente.setPuntosRecargaConocidos(puntos);
 		return nuevoEstadoAgente;
 	}
 

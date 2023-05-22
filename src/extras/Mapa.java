@@ -257,13 +257,41 @@ public class Mapa {
 	}
 	
 	public Mapa clone() {
-		Mapa map = new Mapa((ArrayList<Nodo>) this.getMapa().clone(),
-							this.getAm1().clone(), this.am2.clone(), this.getAm3().clone(), this.getAm4().clone(), this.am5.clone(), this.getAm6().clone(), this.getAm7().clone(), this.getAm8().clone(), this.getAm9().clone(), this.getAm10().clone(),
-							this.getEu1().clone(), this.getEu2().clone(), this.getEu3().clone(), this.getEu4().clone(),
-							this.getAf1().clone(), this.getAf2().clone(), this.getAf3().clone(), this.getAf4().clone(),
-							this.getAs1().clone(), this.getAs2().clone(), this.getAs3().clone(), this.getAs4().clone(), this.getAs5().clone(), this.getAs6().clone(), this.getAs7().clone(), this.getAs8().clone(),
-							this.getOc1().clone(), this.getOc2().clone(),
-							this.getFin().clone());
+		Mapa map = new Mapa();
+		ArrayList<Nodo> nuevoMapa = new ArrayList<Nodo>();
+		for(Nodo nodo: mapa) {
+			nuevoMapa.add(nodo.clone());
+		}
+		map.setMapa(nuevoMapa);
+		map.setAm1(am1);
+		map.setAm2(am2);
+		map.setAm3(am3);
+		map.setAm4(am4);
+		map.setAm5(am5);
+		map.setAm6(am6);
+		map.setAm7(am7);
+		map.setAm8(am8);
+		map.setAm9(am9);
+		map.setAm10(am10);
+		map.setEu1(eu1);
+		map.setEu2(eu2);
+		map.setEu3(eu3);
+		map.setEu4(eu4);
+		map.setAf1(af1);
+		map.setAf2(af2);
+		map.setAf3(af3);
+		map.setAf4(af4);
+		map.setAs1(as1);
+		map.setAs2(as2);
+		map.setAs3(as3);
+		map.setAs4(as4);
+		map.setAs5(as5);
+		map.setAs6(as6);
+		map.setAs7(as7);
+		map.setAs8(as8);
+		map.setOc1(oc1);
+		map.setOc2(oc2);
+		map.setFin(fin);
 		return map;
 	}
 	

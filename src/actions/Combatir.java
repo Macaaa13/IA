@@ -45,7 +45,6 @@ public class Combatir extends SearchAction {
 				for(int i=0; i<mapaAgente.size(); i++) { // Actualizo el mapa conocido (elimino al enemigo)
 					if(enem.getPosicion().getId() == mapaAgente.get(i).getId()) {
 						estadoAgente.getMapaConocido().getMapa().get(i).setEstado(EstadoEnum.VACIO);
-						System.out.println("Seteo vacio: " + estadoAgente.getMapaConocido().getMapa().get(i).getId());
 						i = mapaAgente.size();
 					}
 				}

@@ -99,4 +99,14 @@ public class Enemigo {
 		this.turnosDetenido = enem.getTurnosDetenido();
 	}
 	
+	public Enemigo clone() {
+		Enemigo enem = new Enemigo();
+		enem.setId(id);
+		enem.setEnergia(energia);
+		enem.setPosicion(posicion.clone());
+		enem.setTurnosAEsperar(turnosAEsperar);
+		enem.setTurnosDetenido(turnosDetenido);
+		return enem;
+	}
+	
 }

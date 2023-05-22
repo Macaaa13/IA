@@ -59,4 +59,11 @@ public class PuntoRecarga {
 		this.turnosSinUsar = punto.getTurnosSinUsar();
 	}
 	
+	public PuntoRecarga clone() {
+		PuntoRecarga pr = new PuntoRecarga();
+		pr.setPosicion(posicion.clone());
+		pr.setTurnosSinUsar(turnosSinUsar);
+		return pr;
+	}
+	
 }
