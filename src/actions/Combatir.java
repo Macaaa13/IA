@@ -26,7 +26,7 @@ public class Combatir extends SearchAction {
 		ArrayList<Enemigo> enemigos = estadoAgente.getEnemigosConocidos();
 		ArrayList<Nodo> mapaAgente = estadoAgente.getMapaConocido().getMapa();
 		
-		if(posicionActual.hayEnemigo()) {
+		if(obtenerEnemigo(posicionActual, enemigos)!=null/*posicionActual.hayEnemigo()*/ ) {
 			Enemigo enem = obtenerEnemigo(posicionActual, enemigos);
 			if(energiaAgente > enem.getEnergia()) {
 				//System.out.println("Combate y gana contra " + enem.getId());

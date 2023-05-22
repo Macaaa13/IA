@@ -29,11 +29,12 @@ public class Huir extends SearchAction {
 		EstadoAgente estadoAgente = estado.clone();
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
+		ArrayList<Enemigo> listaEnemigos = estadoAgente.getEnemigosConocidos();
 		
 		if(esSucesor(posicionHuir, posicionActual.getSucesores())
 				&& energiaAgente > 0.0) {
-			if(posicionActual.hayEnemigo() && posicionActual.getId() != IdNodoEnum.FIN) {
-				Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
+			if(obtenerEnemigo(posicionActual, listaEnemigos)!=null/*posicionActual.hayEnemigo()*/ && posicionActual.getId() != IdNodoEnum.FIN) {
+				Enemigo enem = obtenerEnemigo(posicionActual, listaEnemigos);
 				if(energiaAgente <= enem.getEnergia()) {
 					posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
 					estadoAgente.setPosicion(posicionHuir);
@@ -57,11 +58,12 @@ public class Huir extends SearchAction {
 		EstadoAmbiente estadoAmbiente = (EstadoAmbiente) est;
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
+		ArrayList<Enemigo> listaEnemigos = estadoAgente.getEnemigosConocidos();
 		
 		if(esSucesor(posicionHuir, posicionActual.getSucesores())
 				&& energiaAgente > 0.0) {
-			if(posicionActual.hayEnemigo() && posicionActual.getId() != IdNodoEnum.FIN) {
-				Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
+			if(obtenerEnemigo(posicionActual, listaEnemigos)!=null/*posicionActual.hayEnemigo()*/ && posicionActual.getId() != IdNodoEnum.FIN) {
+				Enemigo enem = obtenerEnemigo(posicionActual, listaEnemigos);
 				if(energiaAgente <= enem.getEnergia()) {
 					posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
 					estadoAgente.setPosicion(posicionHuir);
