@@ -27,8 +27,8 @@ public class CargarEnergia extends SearchAction {
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
 		// Busco el punto de recarga en la lista de puntos conocidos por el agente
-		PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
-		if(puntoRecarga != null && puntoRecarga.getTurnosSinUsar() > 1 && energiaAgente<30.0) {
+		PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());		
+		if(puntoRecarga != null && puntoRecarga.getTurnosSinUsar() > 1) {
 			Random rand = new Random();
 			energiaCargada = (double) (rand.nextInt(5, 11));
 			estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente
@@ -39,6 +39,7 @@ public class CargarEnergia extends SearchAction {
 					pr.setTurnosSinUsar(0); // Actualizo la informacion del punto
 				}
 			}
+			
 			return estadoAgente;
 		}
 		return null;
@@ -58,7 +59,7 @@ public class CargarEnergia extends SearchAction {
 		
 		// Busco el punto de recarga en la lista de puntos conocidos por el agente
 		PuntoRecarga puntoRecarga = obtenerPuntoRecarga(posicionAgente, estadoAgente.getPuntosRecargaConocidos());
-		if(puntoRecarga != null && puntoRecarga.getTurnosSinUsar() > 1 && energiaAgente<30.0) {
+		if(puntoRecarga != null && puntoRecarga.getTurnosSinUsar() > 1) {
 			Random rand = new Random();
 			energiaCargada = (double) (rand.nextInt(5, 11));
 			estadoAgente.aumentarEnergia(energiaCargada); // Se actualiza la energia disponible del agente

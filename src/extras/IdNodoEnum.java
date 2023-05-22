@@ -7,6 +7,7 @@ public enum IdNodoEnum {
 	AF1, AF2, AF3, AF4,
 	AS1, AS2, AS3, AS4, AS5, AS6, AS7, AS8,
 	OC1, OC2,
-	FIN;
+	FIN,
+	GOAL;
 	
 }

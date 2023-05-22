@@ -1,5 +1,8 @@
 package actions;
 
+import java.util.ArrayList;
+
+import extras.Enemigo;
 import extras.EstadoEnum;
 import extras.Nodo;
 import frsf.cidisi.faia.agent.search.SearchAction;
@@ -16,17 +19,13 @@ public class ActivarPoderEspecial extends SearchAction {
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
 		EstadoAgente estado = (EstadoAgente) s;
 		EstadoAgente estadoAgente = estado.clone();
-		Nodo posicionAgente = estadoAgente.getPosicion();
+		Nodo posicionAgente = estado.getPosicion();
 		Double energiaDisponible = estadoAgente.getEnergiaDisponible();
 		Double energiaInicial = estadoAgente.getEnergiaInicial();
 		
-		/** El agente puede activar un poder si:
-		 * 1) Se encuentra en un nodo VACIO
-		 * 2) El contador de ataques es >= 4 (deben pasar 3 o mas turnos desde la ultima vez que se activo un poder)
-		 * 3) Tiene alguno de sus poderes habilitado (supera su energia inicial en el porcentaje correspondiente al poder)
-		 * Como el jefe comienza con 50 puntos de energia, se busca que el active un poder en caso de tener 50 puntos de energia o menos */
-		if((posicionAgente.getEstado() == EstadoEnum.VACIO || posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA)
-				&& estadoAgente.getContadorAtaques() >= 4 && energiaDisponible<30.0) {
+		Enemigo enem = obtenerEnemigo(posicionAgente, estadoAgente.getEnemigosConocidos());
+		
+		if(enem == null && estadoAgente.getContadorAtaques() >= 4) {
 			// Poder especial 1: se activa cuando se supera en un 25% la energia inicial
 			// Aumenta la energia del agente en un 20%
 			if((energiaDisponible >= (energiaInicial*1.25)) && (energiaDisponible < (energiaInicial*1.75))) {	
@@ -74,13 +73,9 @@ public class ActivarPoderEspecial extends SearchAction {
 		Double energiaDisponible = estadoAgente.getEnergiaDisponible();
 		Double energiaInicial = estadoAgente.getEnergiaInicial();
 		
-		/** El agente puede activar un poder si:
-		 * 1) Se encuentra en un nodo VACIO
-		 * 2) El contador de ataques es >= 4 (deben pasar 3 o mas turnos desde la ultima vez que se activo un poder)
-		 * 3) Tiene alguno de sus poderes habilitado (supera su energia inicial en el porcentaje correspondiente al poder)
-		 * Como el jefe comienza con 50 puntos de energia, se busca que el active un poder en caso de tener 50 puntos de energia o menos */
-		if((posicionAgente.getEstado() == EstadoEnum.VACIO || posicionAgente.getEstado() == EstadoEnum.PUNTORECARGA)
-				&& estadoAgente.getContadorAtaques() >= 4 && energiaDisponible<30.0) {
+		Enemigo enem = obtenerEnemigo(posicionAgente, estadoAgente.getEnemigosConocidos());
+		
+		if(enem == null && estadoAgente.getContadorAtaques() >= 4) {
 			// Poder especial 1: se activa cuando se supera en un 25% la energia inicial
 			// Aumenta la energia del agente en un 20%
 			if((energiaDisponible >= (energiaInicial*1.25)) && (energiaDisponible < (energiaInicial*1.75))) {
@@ -124,6 +119,15 @@ public class ActivarPoderEspecial extends SearchAction {
 	@Override
 	public String toString() {
 		return "Activar poder especial ";
+	}
+	
+	public Enemigo obtenerEnemigo(Nodo nodo, ArrayList<Enemigo> enemigos) {
+		for(Enemigo e: enemigos) {
+			if(e.getPosicion().getId() == nodo.getId()) {
+				return e;
+			}
+		}
+		return null;
 	}
 
 }

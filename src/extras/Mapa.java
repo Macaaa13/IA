@@ -35,6 +35,7 @@ public class Mapa {
 	private Nodo oc1 = new Nodo();
 	private Nodo oc2 = new Nodo();
 	private Nodo fin = new Nodo();
+	private Nodo goal = new Nodo();
 	
 	//Constructor
 	public Mapa() {
@@ -43,41 +44,6 @@ public class Mapa {
 		inicializarNodos();
 		cargarSucesores();
 		cargarMapa();
-	}
-	
-	public Mapa(ArrayList<Nodo> map, Nodo n1, Nodo n2, Nodo n3, Nodo n4, Nodo n5, Nodo n6, Nodo n7, Nodo n8, Nodo n9,
-			Nodo n10, Nodo n11, Nodo n12, Nodo n13, Nodo n14, Nodo n15, Nodo n16, Nodo n17, Nodo n18, Nodo n19, Nodo n20,
-			Nodo n21, Nodo n22, Nodo n23, Nodo n24, Nodo n25, Nodo n26, Nodo n27, Nodo n28, Nodo n29) {
-		this.mapa = map;
-		this.am1 = n1;
-		this.am2 = n2;
-		this.am3 = n3;
-		this.am4 = n4;
-		this.am5 = n5;
-		this.am6 = n6;
-		this.am7 = n7;
-		this.am8 = n8;
-		this.am9 = n9;
-		this.am10 = n10;
-		this.eu1 = n11;
-		this.eu2 = n12;
-		this.eu3 = n13;
-		this.eu4 = n14;
-		this.af1 = n15;
-		this.af2 = n16;
-		this.af3 = n17;
-		this.af4 = n18;
-		this.as1 = n19;
-		this.as2 = n20;
-		this.as3 = n21;
-		this.as4 = n22;
-		this.as5 = n23;
-		this.as6 = n24;
-		this.as7 = n25;
-		this.as8 = n26;
-		this.oc1 = n27;
-		this.oc2 = n28;
-		this.fin = n29;
 	}
 	
 	//Metodos
@@ -140,6 +106,8 @@ public class Mapa {
 		oc2.setId(IdNodoEnum.OC2);
 		fin.setEstado(EstadoEnum.DESCONOCIDO);
 		fin.setId(IdNodoEnum.FIN);
+		goal.setEstado(EstadoEnum.DESCONOCIDO);
+		goal.setId(IdNodoEnum.GOAL);
 	}
 	
 	public void cargarSucesores() {
@@ -222,11 +190,13 @@ public class Mapa {
 		fin.addSucesor(af4);
 		fin.addSucesor(as1);
 		fin.addSucesor(oc1);
+		fin.addSucesor(goal);
+		goal.addSucesor(fin);
 	}
 	
 	public void cargarMapa() {
 		mapa.addAll(Arrays.asList(am1, am2, am3, am4, am5, am6, am7, am8, am9, am10, eu1, eu2, eu3, eu4, af1, af2, af3,
-				af4, oc1, oc2, as1, as2, as3, as4, as5, as6, as7, as8, fin));
+				af4, oc1, oc2, as1, as2, as3, as4, as5, as6, as7, as8, fin, goal));
 	}
 	
 	public Nodo getNodo(IdNodoEnum idNodo) {
@@ -292,6 +262,7 @@ public class Mapa {
 		map.setOc1(oc1);
 		map.setOc2(oc2);
 		map.setFin(fin);
+		map.setGoal(goal);
 		return map;
 	}
 	
@@ -535,9 +506,13 @@ public class Mapa {
 	public void setFin(Nodo fin) {
 		this.fin = fin;
 	}
-	
-	
 
-	
+	public Nodo getGoal() {
+		return goal;
+	}
+
+	public void setGoal(Nodo goal) {
+		this.goal = goal;
+	}
 
 }

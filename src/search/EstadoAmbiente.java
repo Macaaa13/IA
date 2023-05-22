@@ -97,6 +97,7 @@ public class EstadoAmbiente extends EnvironmentState {
 				this.mapaAmbiente.getNodo(i).setEstado(EstadoEnum.VACIO);
 			}
 		}
+		this.mapaAmbiente.getGoal().setEstado(EstadoEnum.VACIO);
 	}
 	
 	private Enemigo generarEnemigo(Nodo nodo) {

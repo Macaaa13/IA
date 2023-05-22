@@ -2,6 +2,7 @@ package actions;
 
 import java.util.ArrayList;
 
+import extras.Enemigo;
 import extras.EstadoEnum;
 
 import extras.Nodo;
@@ -29,10 +30,12 @@ public class Moverse extends SearchAction {
 		EstadoAgente estado = (EstadoAgente) s;
 		EstadoAgente estadoAgente = estado.clone();
 		Nodo posicionAgente = estadoAgente.getPosicion();
+		
 
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAgente.getMapaConocido().getMapa());
+		Enemigo e = obtenerEnemigo(posicionAgente, estadoAgente.getEnemigosConocidos());
 		
-		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())) {
+		if(e == null && posicionAgente.getSucesores().contains(posicionSiguiente)) {
 			
 			estadoAgente.setPosicion(posicionSiguiente);
 			return estadoAgente;
@@ -55,7 +58,7 @@ public class Moverse extends SearchAction {
 		
 		posicionSiguiente = obtenerPosicion(posicionSiguiente, estadoAmbiente.getMapaAmbiente().getMapa());
 		
-		if(esSucesor(posicionSiguiente, posicionAgente.getSucesores())) {
+		if(posicionAgente.getSucesores().contains(posicionSiguiente)) {
 			
 			/** Llega bien ANTES de usar el satelite
 			System.out.println("Mapa");
@@ -77,15 +80,6 @@ public class Moverse extends SearchAction {
 	public String toString() {
 		return "Moverse a " + posicionSiguiente.getId();
 	}
-
-	public boolean esSucesor(Nodo pos, ArrayList<Nodo> sucesores) {
-		for(Nodo nodo: sucesores) {
-			if(pos.getId() == nodo.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	public Nodo obtenerPosicion(Nodo nodo, ArrayList<Nodo> mapaConocido) {
 		for(Nodo n: mapaConocido) {
@@ -96,25 +90,13 @@ public class Moverse extends SearchAction {
 		return null;
 	}
 	
-	public PuntoRecarga obtenerPuntoRecarga(Nodo nodo, ArrayList<PuntoRecarga> puntos) {
-		for(PuntoRecarga pr: puntos) {
-			if(pr.getPosicion().getId() == nodo.getId()) {
-				return pr;
+	public Enemigo obtenerEnemigo(Nodo nodo, ArrayList<Enemigo> enemigos) {
+		for(Enemigo e: enemigos) {
+			if(e.getPosicion().getId() == nodo.getId()) {
+				return e;
 			}
 		}
 		return null;
-	}
-	
-	public boolean puntoRecargaUsado(EstadoAgente estado) {
-		Nodo posAgente = estado.getPosicion();
-		boolean bandera = false;
-		if(posAgente.getEstado() == EstadoEnum.PUNTORECARGA) {
-			PuntoRecarga pr = obtenerPuntoRecarga(posAgente, estado.getPuntosRecargaConocidos());
-			if(pr.getTurnosSinUsar()==0) {
-				bandera = true;
-			}
-		}
-		return bandera;
 	}
 	
 }

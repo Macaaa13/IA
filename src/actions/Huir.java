@@ -30,13 +30,14 @@ public class Huir extends SearchAction {
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
+		posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
 		Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
-		if(esSucesor(posicionHuir, posicionActual.getSucesores())
-				&& energiaAgente > 0.0
-				&& enem != null
-				&& posicionActual.getId() != IdNodoEnum.FIN) {		
+		
+		if(enem != null
+				&& posicionActual.getSucesores().contains(posicionHuir)
+				&& posicionActual.getId() != IdNodoEnum.FIN
+				&& energiaAgente > 0.0) {		
 			if(energiaAgente <= enem.getEnergia()) {
-				posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
 				estadoAgente.setPosicion(posicionHuir);
 				estadoAgente.aumentarEnergia(-enem.getEnergia()/4);
 				return estadoAgente;
@@ -57,13 +58,14 @@ public class Huir extends SearchAction {
 		Nodo posicionActual = estadoAgente.getPosicion();
 		Double energiaAgente = estadoAgente.getEnergiaDisponible();
 		
+		posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
 		Enemigo enem = obtenerEnemigo(posicionActual, estadoAgente.getEnemigosConocidos());
-		if(esSucesor(posicionHuir, posicionActual.getSucesores())
+		
+		if(posicionActual.getSucesores().contains(posicionHuir)
 				&& energiaAgente > 0.0
 				&& enem != null
 				&& posicionActual.getId() != IdNodoEnum.FIN) {
 			if(energiaAgente <= enem.getEnergia()) {
-				posicionHuir = obtenerPosicion(posicionHuir, estadoAgente.getMapaConocido().getMapa());
 				estadoAgente.setPosicion(posicionHuir);
 				estadoAmbiente.setUbicacionAgente(estadoAgente.getPosicion());
 				estadoAgente.aumentarEnergia(-enem.getEnergia()/4);
@@ -78,15 +80,6 @@ public class Huir extends SearchAction {
 	public String toString() {
 		return "Huir a " + posicionHuir.getId();
 	}
-
-	public boolean esSucesor(Nodo pos, ArrayList<Nodo> sucesores) {
-		for(Nodo nodo: sucesores) {
-			if(pos.getId() == nodo.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	public Nodo obtenerPosicion(Nodo nodo, ArrayList<Nodo> mapaConocido) {
 		for(Nodo n: mapaConocido) {
@@ -98,12 +91,8 @@ public class Huir extends SearchAction {
 	}
 	
 	public Enemigo obtenerEnemigo(Nodo nodo, ArrayList<Enemigo> enemigos) {
-		//System.out.println("Posicion actual: " + nodo);
-		//System.out.println("Enemigos conocidos:");
 		for(Enemigo e: enemigos) {
-			//System.out.println(e);
 			if(e.getPosicion().getId() == nodo.getId()) {
-				//System.out.println("COINCIDEN");
 				return e;
 			}
 		}
