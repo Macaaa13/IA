@@ -196,7 +196,7 @@ public class EstadoAmbiente extends EnvironmentState {
 		mensaje += "Ubicación del agente: " + ubicacionAgente.getId() + "\n";
 		mensaje += "Posición de los enemigos: [";
 		for (Enemigo e: enemigos) {
-			mensaje += " " + e.getId() + "/"+ e.getPosicion().getId().toString()+ "/" + e.getTurnosDetenido()+", ";
+			mensaje += " " + e.getId() + "/"+ e.getPosicion().getId().toString()+ ", ";
 		}
 		mensaje += "]\n";
 		mensaje += "Puntos de recarga: [";

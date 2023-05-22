@@ -35,16 +35,16 @@ public class AgentePokemon extends SearchBasedAgent {
 			// Combatir
 			acciones.addElement(new Combatir());
 			
-			// Huir
-			for(int j=0; j<estado.getMapaConocido().getMapa().size(); j++) {
-				acciones.addElement(new Huir(estado.getMapaConocido().getMapa().get(j)));
-			}
-			
 			// Activar poder
 			acciones.addElement(new ActivarPoderEspecial());
 			
 			// Cargar energia
 			acciones.addElement(new CargarEnergia());
+			
+			// Huir
+			for(int j=0; j<estado.getMapaConocido().getMapa().size(); j++) {
+				acciones.addElement(new Huir(estado.getMapaConocido().getMapa().get(j)));
+			}
 			
 			// Problema que el agente debe resolver
 			Problem problem = new Problem(objetivo, estado, acciones);
@@ -65,13 +65,15 @@ public class AgentePokemon extends SearchBasedAgent {
 			 * DepthFirstSearch strategy = new DepthFirstSearch();
 			 * 
 			 * 3) A Star Search:
-			 * IStepCostFunction cost = new CostFunction();
-			 * IEstimatedCostFunction heuristic = new Heuristic();
+			 * IStepCostFunction cost = new FuncionCosto();
+			 * IEstimatedCostFunction heuristic = new FuncionHeuristica();
 			 * AStarSearch strategy = new AStarSearch(cost, heuristic);
 			 * */
 			
 			// Estrategia seleccionada (Reemplazar con las de arriba)
-			BreathFirstSearch strategy = new BreathFirstSearch();
+			IStepCostFunction cost = new FuncionCosto();
+			IEstimatedCostFunction heuristic = new FuncionHeuristica();
+			AStarSearch strategy = new AStarSearch(cost, heuristic);
 			
 			// Crear objeto Search con la estrategia
 			Search searchSolver = new Search(strategy);

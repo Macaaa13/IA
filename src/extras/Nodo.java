@@ -8,25 +8,14 @@ public class Nodo {
 	private EstadoEnum estado;
 	private IdNodoEnum id;
 	private ArrayList<Nodo> sucesores;
+	private Integer costo;
 	
 	//Constructores
 	public Nodo() {
 		this.sucesores = new ArrayList<>();
 	}
 	
-	public Nodo(EstadoEnum est, IdNodoEnum ine, ArrayList<Nodo> suc) {
-		this.estado = est;
-		this.id = ine;
-		this.sucesores = suc;
-	}
-	
 	//Getters y Setters
-	public Nodo(EstadoEnum e, IdNodoEnum i) {
-		this.estado = e;
-		this.id = i;
-		this.sucesores = new ArrayList<>();
-	}
-
 	public EstadoEnum getEstado() {
 		return estado;
 	}
@@ -49,6 +38,14 @@ public class Nodo {
 
 	public void setSucesores(ArrayList<Nodo> sucesores) {
 		this.sucesores = sucesores;
+	}
+
+	public Integer getCosto() {
+		return costo;
+	}
+
+	public void setCosto(Integer costo) {
+		this.costo = costo;
 	}
 
 	//Metodos
